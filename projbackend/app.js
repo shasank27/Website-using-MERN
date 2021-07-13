@@ -1,9 +1,11 @@
+require("dotenv").config();
+
 const mongoose = require("mongoose");
 const express = require("express");
 const app = express();
 
 mongoose
-  .connect("mongodb://127.0.0.1/tshirt?authSource=admin", {
+  .connect(process.env.DATABASE, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true,
@@ -11,5 +13,7 @@ mongoose
   })
   .then(() => console.log("DB CONNECTED"))
   .catch((error) => console.log(error));
-const port = 8080;
-app.listen(8080, () => console.log(`the app is running at ${port}`));
+const port = process.env.PORT;
+app.listen(process.env.PORT, () =>
+  console.log(`the app is running at ${port}`)
+);
