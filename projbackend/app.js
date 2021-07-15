@@ -1,8 +1,19 @@
 require("dotenv").config();
-
+const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser");
+const cors = require("cors");
 const mongoose = require("mongoose");
 const express = require("express");
 const app = express();
+const authRoutes = require("./routes/auth");
+
+app.use("/api",authRoutes);
+
+// app.use()
+
+app.use(bodyParser.json);
+app.use(cookieParser());
+app.use(cors());
 
 mongoose
   .connect(process.env.DATABASE, {
