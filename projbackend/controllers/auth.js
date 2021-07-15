@@ -1,2 +1,4 @@
-exports.signup= (req,res)=>res.send("In Sign in Page");
+
+exports.signin= (req,res)=>res.json({message:"In Sign-In Page"});
+exports.signup= (req,res)=>res.json({message:"In Sign-Up Page"});
 

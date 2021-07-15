@@ -52,7 +52,7 @@ UserSchema.virtual("password")
     return this.password;
   });
 
-UserSchema.method({
+UserSchema.methods({
   authenticate: function (plainPassword) {
     return this.securePassword(plainPassword) === this.encrypt_password;
   },

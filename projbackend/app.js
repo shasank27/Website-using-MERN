@@ -9,8 +9,6 @@ const authRoutes = require("./routes/auth");
 
 app.use("/api",authRoutes);
 
-// app.use()
-
 app.use(bodyParser.json);
 app.use(cookieParser());
 app.use(cors());
