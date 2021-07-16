@@ -1,6 +1,6 @@
-import { v1 as uuidv1 } from "uuid";
+const { v1: uuidv1 } = require('uuid');
 const mongoose = require("mongoose");
-const mongoose = require("crypto");
+const crypto = require("crypto");
 
 var UserSchema = new mongoose.Schema(
   {
@@ -15,7 +15,6 @@ var UserSchema = new mongoose.Schema(
       trim: true,
       maxlength: 32,
     },
-
     email: {
       type: String,
       trim: true,
@@ -23,7 +22,7 @@ var UserSchema = new mongoose.Schema(
     },
     encrypt_password: {
       type: String,
-      required: true,
+      // required: true,
     },
     salt: {
       type: String,
@@ -52,7 +51,7 @@ UserSchema.virtual("password")
     return this.password;
   });
 
-UserSchema.methods({
+UserSchema.method({
   authenticate: function (plainPassword) {
     return this.securePassword(plainPassword) === this.encrypt_password;
   },
@@ -69,4 +68,4 @@ UserSchema.methods({
     }
   },
 });
-module.exports = moongose.model("user", UserSchema);
+module.exports = mongoose.model("user", UserSchema);
