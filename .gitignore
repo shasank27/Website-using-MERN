@@ -2,7 +2,7 @@
 projbackend/node_modules
 projfrontend/node_modules
 testback/node_modules
-testfront/node_modules
+node_modules
 
 #file type to exclude
 .env

@@ -12,7 +12,7 @@ mongoose
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true,
-    dbName: "database-name",
+    dbName: "tshirt",
   })
   .then(() => console.log("DB CONNECTED"))
   .catch((error) => console.log(error));

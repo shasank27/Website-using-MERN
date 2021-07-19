@@ -1,10 +1,34 @@
 const User = require("../models/user");
+var expressjwt = require('express-jwt');
+var jwt = require('jsonwebtoken');
 const { body, validationResult } = require('express-validator');
-exports.signin = (req, res) => {
 
-    res.json({
-        "message": "SignInJson"
+exports.signin = (req, res) => {
+    const {email, password}=req.body;
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array()[0].msg });
+    }
+    User.findOne({email}, (err, user)=>{
+        if(err || !user){
+            res.status(400).json({
+                error:"User Email doesn't exists"
+            })
+        }
+        if(!user.authenticate(password)){
+            return res.status(400).json({
+                error:"Email and password don't match"
+            })
+        }
+        const token = jwt.sign({_id:user._id}, process.env.SECRETKEY);
+
+        res.cookie("token",token, {expires:new Date(Date.now()+9000)});
+
+        const {_id, name, email, role}=user;
+
+        res.json({token, user:{_id, name, email, role}});
     })
+    
 };
 
 exports.signup = (req, res) => {
