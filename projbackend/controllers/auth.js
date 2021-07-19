@@ -30,7 +30,12 @@ exports.signin = (req, res) => {
     })
     
 };
-
+exports.signout = (req, res) => {
+    res.clearCookie("token");
+    res.json({
+        message:"User signed out successfully",
+    })
+};
 exports.signup = (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -52,3 +57,8 @@ exports.signup = (req, res) => {
     })
 };
 
+exports.isSignedIn = expressjwt({
+        secret:process.env.SECRETKEY,
+        userProperty:"auth"
+        
+})
