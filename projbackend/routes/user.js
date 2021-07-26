@@ -1,11 +1,10 @@
-const { request } = require("express");
 const express = require("express");
 const router= express.Router();
 
-const {isSignedIn}= require("../controllers/auth");
+const {isSignedIn, isAuthenticated, isAdmin}= require("../controllers/auth");
 const {getUserById, getUser}= require("../controllers/user");
 
-request.params("userId", getUserById);
-router.get("user/:userId")
+router.param("userId", getUserById);
+router.get("user/:userId", isSignedIn, isAuthenticated,getUser);
 
 module.exports= router;
